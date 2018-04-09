@@ -1,39 +1,61 @@
-<html>
-   <head>
-   <body>
-      <form name="calculator">
-         <table>
-            <tr>
-               <td colspan="4">
-                  <input type="text" name="display" id="display" disabled>
-               </td>
-            </tr>
-            <tr>
-               <td><input type="button" name="one" value="1" onclick="calculator.display.value += '1'"></td>
-               <td><input type="button" name="two" value="2" onclick="calculator.display.value += '2'"></td>
-               <td><input type="button" name="three" value="3" onclick="calculator.display.value += '3'"></td>
-               <td><input type="button" class="operator" name="plus" value="+" onclick="calculator.display.value += '+'"></td>
-            </tr>
-            <tr>
-               <td><input type="button" name="four" value="4" onclick="calculator.display.value += '4'"></td>
-               <td><input type="button" name="five" value="5" onclick="calculator.display.value += '5'"></td>
-               <td><input type="button" name="six" value="6" onclick="calculator.display.value += '6'"></td>
-               <td><input type="button" class="operator" name="minus" value="-" onclick="calculator.display.value += '-'"></td>
-            </tr>
-            <tr>
-               <td><input type="button" name="seven" value="7" onclick="calculator.display.value += '7'"></td>
-               <td><input type="button" name="eight" value="8" onclick="calculator.display.value += '8'"></td>
-               <td><input type="button" name="nine" value="9" onclick="calculator.display.value += '9'"></td>
-               <td><input type="button" class="operator" name="times" value="x" onclick="calculator.display.value += '*'"></td>
-            </tr>
-            <tr>
-               <td><input type="button" id="clear" name="clear" value="c" onclick="calculator.display.value = ''"></td>
-               <td><input type="button" name="zero" value="0" onclick="calculator.display.value += '0'"></td>
-               <td><input type="button" name="doit" value="=" onclick="calculator.display.value = eval(calculator.display.value)"></td>
-               <td><input type="button" class="operator" name="div" value="/" onclick="calculator.display.value += '/'"></td>
-            </tr>
-         </table>
-      </form>
-   </body>
-   </head>
-</html>
+<!DOCTYPE html>
+    <html>
+       <head>
+    <title>BMI Calculator</title>
+
+    <script type="text/javascript">
+
+        function computeBMI() {
+            // user inputs
+            var height = Number(document.getElementById("height").value);
+            var heightunits = document.getElementById("heightunits").value;
+            var weight = Number(document.getElementById("weight").value);
+            var weightunits = document.getElementById("weightunits").value;
+
+
+            //Convert all units to metric
+            if (heightunits == "inches") height /= 39.3700787;
+            if (weightunits == "lb") weight /= 2.20462;
+
+            //Perform calculation
+
+            //        var BMI = weight /Math.pow(height, 2)*10000;
+            var BMI = Math.round(weight / Math.pow(height, 2) * 10000);
+
+            //Display result of calculation
+            document.getElementById("output").innerText = Math.round(BMI * 100) / 100;
+
+            var output = Math.round(BMI * 100) / 100
+            if (output < 18.5)
+                document.getElementById("comment").innerText = "Underweight";
+            else if (output >= 18.5 && output <= 25)
+                document.getElementById("comment").innerText = "Normal";
+            else if (output >= 25 && output <= 30)
+                document.getElementById("comment").innerText = "Obese";
+            else if (output > 30)
+                document.getElementById("comment").innerText = "Overweight";
+            // document.getElementById("answer").value = output; 
+        }
+    </script>`enter code here`
+     </head>
+     <body>
+    <h1>Body Mass Index Calculator</h1>
+    <p>Enter your height: <input type="text" id="height"/>
+        <select type="multiple" id="heightunits">
+            <option value="metres" selected="selected">metres</option>
+            <option value="inches">inches</option>
+        </select>
+         </p>
+    <p>Enter your weight: <input type="text" id="weight"/>
+        <select type="multiple" id="weightunits">
+            <option value="kg" selected="selected">kilograms</option>
+            <option value="lb">pounds</option>
+        </select>
+    </p>
+    <input type="submit" value="computeBMI" onclick="computeBMI();">
+    <h1>Your BMI is: <span id="output">?</span></h1>
+
+    <h2>This means you are: <span id="comment"> ?</span> </h2> 
+     </body>
+
+    </html>
